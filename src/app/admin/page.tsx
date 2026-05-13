@@ -11,9 +11,15 @@ import toast from 'react-hot-toast';
 import CourseModal from '@/components/CourseModal';
 import LessonModal from '@/components/LessonModal';
 import CreateUserModal from '@/components/CreateUserModal';
+import AdminInactivityTracker from '@/components/AdminInactivityTracker';
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function AdminDashboard() {
+  const router = useRouter();
+  const { data: session, isPending } = authClient.useSession();
+  
   const [activeTab, setActiveTab] = useState<'overview' | 'courses' | 'users'>('overview');
   const [courses, setCourses] = useState<any[]>([]);
   const [purchases, setPurchases] = useState<any[]>([]);
@@ -26,6 +32,12 @@ export default function AdminDashboard() {
   const [isLessonModalOpen, setIsLessonModalOpen] = useState(false);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
+
+  useEffect(() => {
+    if (!isPending && (!session || session.user.role !== 'ADMIN')) {
+      router.push('/admin/login');
+    }
+  }, [session, isPending, router]);
 
   const fetchData = async () => {
     setLoading(true);
@@ -129,6 +141,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="pt-32 pb-24 px-6 min-h-screen">
+      <AdminInactivityTracker />
       <div className="container">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
