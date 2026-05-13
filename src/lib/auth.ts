@@ -3,9 +3,9 @@ import { createNeonAuth } from '@neondatabase/auth/next/server';
 import { prisma } from './prisma';
 
 export const auth = createNeonAuth({
-  baseUrl: process.env.NEON_AUTH_BASE_URL!,
+  baseUrl: process.env.NEON_AUTH_BASE_URL || 'http://localhost:3000',
   cookies: {
-    secret: process.env.NEON_AUTH_COOKIE_SECRET!,
+    secret: process.env.NEON_AUTH_COOKIE_SECRET || 'placeholder-secret-for-build-time-only',
   },
 });
 
