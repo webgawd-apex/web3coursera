@@ -28,8 +28,9 @@ export default function AdminLoginPage() {
 
       // After login, check if the user is actually an admin
       const { data: session } = await authClient.getSession();
+      const user = session?.user as { role?: string } | undefined;
       
-      if (session?.user?.role !== 'ADMIN') {
+      if (user?.role !== 'ADMIN') {
         await authClient.signOut();
         throw new Error('Access Denied: You do not have administrative privileges.');
       }

@@ -7,6 +7,14 @@ export const auth = createNeonAuth({
   cookies: {
     secret: process.env.NEON_AUTH_COOKIE_SECRET!,
   },
+  user: {
+    additionalFields: {
+      role: {
+        type: 'string',
+        defaultValue: 'STUDENT',
+      },
+    },
+  },
 });
 
 export async function getAuthUser() {

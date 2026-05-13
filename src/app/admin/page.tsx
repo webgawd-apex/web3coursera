@@ -34,7 +34,8 @@ export default function AdminDashboard() {
   const [selectedCourse, setSelectedCourse] = useState<any>(null);
 
   useEffect(() => {
-    if (!isPending && (!session || session.user.role !== 'ADMIN')) {
+    const user = session?.user as { role?: string } | undefined;
+    if (!isPending && (!session || user?.role !== 'ADMIN')) {
       router.push('/admin/login');
     }
   }, [session, isPending, router]);

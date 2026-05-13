@@ -8,7 +8,8 @@ export default async function middleware(request: NextRequest) {
   });
 
   const isAuth = !!session;
-  const isAdmin = session?.user?.role === 'ADMIN';
+  const user = session?.user as { role?: string } | undefined;
+  const isAdmin = user?.role === 'ADMIN';
   const isAdminPath = request.nextUrl.pathname.startsWith('/admin');
   const isDashboardPath = request.nextUrl.pathname.startsWith('/dashboard') || 
                           request.nextUrl.pathname.startsWith('/learn');

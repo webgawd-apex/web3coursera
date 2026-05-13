@@ -74,7 +74,7 @@ export default function Navbar() {
 
           {user ? (
             <div className="flex items-center gap-6">
-              {user.role === 'ADMIN' && (
+              {(user as any)?.role === 'ADMIN' && (
                 <Link 
                   href="/admin" 
                   className={`flex items-center gap-2 transition-colors font-medium ${isActive('/admin') ? 'text-primary' : 'text-secondary hover:text-primary'}`}
@@ -139,7 +139,7 @@ export default function Navbar() {
               
               {user ? (
                 <>
-                  {user.role === 'ADMIN' && (
+                  {(user as any)?.role === 'ADMIN' && (
                     <Link href="/admin" className="flex items-center gap-2 text-lg font-medium text-blue-400" onClick={() => setIsOpen(false)}>
                       <Shield size={20} />
                       Admin Panel
