@@ -11,7 +11,8 @@ import {
   Ban, 
   CheckCircle2,
   User as UserIcon,
-  Download
+  Download,
+  Users
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import CreateUserModal from '@/components/CreateUserModal';

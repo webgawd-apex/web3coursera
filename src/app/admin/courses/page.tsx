@@ -11,7 +11,8 @@ import {
   Eye, 
   CheckCircle2, 
   Clock, 
-  Layers
+  Layers,
+  BookOpen
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import CourseModal from '@/components/CourseModal';
