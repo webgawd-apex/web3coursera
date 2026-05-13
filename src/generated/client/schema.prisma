@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String
+  password  String
+  role      String     @default("STUDENT") // STUDENT | ADMIN
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  purchases Purchase[]
+  progress  Progress[]
+}
+
+model Course {
+  id              String     @id @default(cuid())
+  title           String
+  slug            String     @unique
+  description     String
+  longDescription String?
+  thumbnail       String?
+  priceSOL        Float
+  status          String     @default("DRAFT") // DRAFT | PUBLISHED
+  instructor      String
+  category        String?
+  level           String     @default("BEGINNER") // BEGINNER | INTERMEDIATE | ADVANCED
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  lessons         Lesson[]
+  purchases       Purchase[]
+}
+
+model Lesson {
+  id          String     @id @default(cuid())
+  title       String
+  description String?
+  videoUrl    String
+  duration    Int? // seconds
+  order       Int
+  courseId    String
+  course      Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  progress    Progress[]
+  createdAt   DateTime   @default(now())
+}
+
+model Purchase {
+  id         String    @id @default(cuid())
+  userId     String
+  courseId   String
+  txHash     String    @unique
+  amountSOL  Float
+  status     String    @default("PENDING") // PENDING | VERIFIED | FAILED
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+  user       User      @relation(fields: [userId], references: [id])
+  course     Course    @relation(fields: [courseId], references: [id])
+}
+
+model Progress {
+  id        String   @id @default(cuid())
+  userId    String
+  lessonId  String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  lesson    Lesson   @relation(fields: [lessonId], references: [id])
+
+  @@unique([userId, lessonId])
+}
