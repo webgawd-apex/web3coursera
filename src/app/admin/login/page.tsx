@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
       if (error) throw error;
 
       // After login, check if the user is actually an admin
-      const { data: session } = await authClient.useSession.getState();
+      const { data: session } = await authClient.getSession();
       
       if (session?.user?.role !== 'ADMIN') {
         await authClient.signOut();
