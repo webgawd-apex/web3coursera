@@ -86,7 +86,7 @@ export default function CreateUserModal({ isOpen, onClose, onSuccess }: CreateUs
                   <input 
                     type="text" 
                     required
-                    className="input pl-12"
+                    className="input pl-14"
                     placeholder="John Doe"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -101,7 +101,7 @@ export default function CreateUserModal({ isOpen, onClose, onSuccess }: CreateUs
                   <input 
                     type="email" 
                     required
-                    className="input pl-12"
+                    className="input pl-14"
                     placeholder="name@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -116,7 +116,7 @@ export default function CreateUserModal({ isOpen, onClose, onSuccess }: CreateUs
                   <input 
                     type="text" 
                     required
-                    className="input pl-12"
+                    className="input pl-14"
                     placeholder="Enter secure password"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}

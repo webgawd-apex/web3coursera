@@ -179,7 +179,7 @@ export default function CourseModal({ isOpen, onClose, onSuccess, course }: Cour
                       <input 
                         type="url" 
                         placeholder="https://images.unsplash.com/..."
-                        className="input pl-10"
+                        className="input pl-14"
                         value={formData.thumbnail}
                         onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
                       />

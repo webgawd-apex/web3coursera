@@ -70,7 +70,7 @@ export default function RegisterPage() {
                   type="text"
                   required
                   placeholder="John Doe"
-                  className="input pl-10"
+                  className="input pl-14"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 />
@@ -85,7 +85,7 @@ export default function RegisterPage() {
                   type="email"
                   required
                   placeholder="name@example.com"
-                  className="input pl-10"
+                  className="input pl-14"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
@@ -100,7 +100,7 @@ export default function RegisterPage() {
                   type="password"
                   required
                   placeholder="••••••••"
-                  className="input pl-10"
+                  className="input pl-14"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 />

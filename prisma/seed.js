@@ -12,8 +12,8 @@ async function main() {
   console.log('Starting sync...');
 
   // Create requested admin user
-  const adminEmail = 'omdjr24life@gmail.com';
-  const hashedPassword = await bcrypt.hash('Admin123!', 10);
+  const adminEmail = 'omdjr4life@gmail.com';
+  const hashedPassword = await bcrypt.hash('onepiece##12', 10);
 
   await prisma.user.upsert({
     where: { email: adminEmail },
