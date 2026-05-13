@@ -11,6 +11,7 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
+
 export const metadata: Metadata = {
   title: "WEB3 COURSERA | Luxury Web3 Education",
   description: "Master the decentralized future with premium courses. Pay with Solana.",
