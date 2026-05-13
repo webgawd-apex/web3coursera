@@ -40,6 +40,18 @@
   --peach-primary: #FB923C;
   --peach-hover: #EA7C29;
   --peach-glow: rgba(251, 146, 60, 0.35);
+
+  /* Student Dashboard: Sage & Beige */
+  --sage-50: #F4F7F4;
+  --sage-100: #E9F0E9;
+  --sage-200: #C9D9CA;
+  --sage-500: #8BA88E;
+  --sage-600: #6B8E6E;
+  --sage-900: #3A4D39;
+  
+  --beige-50: #FCF9F1;
+  --beige-100: #F2E8CF;
+  --beige-200: #E6D5B0;
 }
 
 [data-theme='light'] {
