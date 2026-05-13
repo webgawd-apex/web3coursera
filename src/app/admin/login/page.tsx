@@ -77,7 +77,7 @@ export default function AdminLoginPage() {
                 <input 
                   type="email" 
                   required
-                  className="input pl-14 bg-navy-900/50 border-white/5 focus:border-blue-500"
+                  className="input !pl-14 bg-navy-900/50 border-white/5 focus:border-blue-500"
                   placeholder="admin@web3coursera.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -92,7 +92,7 @@ export default function AdminLoginPage() {
                 <input 
                   type="password" 
                   required
-                  className="input pl-14 bg-navy-900/50 border-white/5 focus:border-blue-500"
+                  className="input !pl-14 bg-navy-900/50 border-white/5 focus:border-blue-500"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -107,7 +107,7 @@ export default function AdminLoginPage() {
             >
               {loading ? <Loader2 className="animate-spin" size={24} /> : (
                 <>
-                  Authenticate Access
+                  Login
                   <ArrowRight size={20} />
                 </>
               )}
@@ -117,7 +117,7 @@ export default function AdminLoginPage() {
 
         <div className="text-center mt-8">
           <Link href="/" className="text-xs text-muted hover:text-white transition-colors flex items-center justify-center gap-2">
-             Back to Terminal
+             Back to site
           </Link>
         </div>
       </motion.div>

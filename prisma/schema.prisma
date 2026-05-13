@@ -10,15 +10,15 @@ model User {
   id            String     @id @default(cuid())
   email         String     @unique
   name          String
-  emailVerified Boolean    @default(false)
-  image         String?
-  role          String     @default("STUDENT") // STUDENT | ADMIN
+  role          String     @default("STUDENT")
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
-  purchases     Purchase[]
-  progress      Progress[]
-  sessions      Session[]
+  emailVerified Boolean    @default(false)
+  image         String?
   accounts      Account[]
+  progress      Progress[]
+  purchases     Purchase[]
+  sessions      Session[]
 }
 
 model Session {
@@ -38,7 +38,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -48,6 +47,7 @@ model Account {
   password              String?
   createdAt             DateTime
   updatedAt             DateTime
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Verification {
@@ -67,10 +67,10 @@ model Course {
   longDescription String?
   thumbnail       String?
   priceSOL        Float
-  status          String     @default("DRAFT") // DRAFT | PUBLISHED
+  status          String     @default("DRAFT")
   instructor      String
   category        String?
-  level           String     @default("BEGINNER") // BEGINNER | INTERMEDIATE | ADVANCED
+  level           String     @default("BEGINNER")
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
   lessons         Lesson[]
@@ -82,12 +82,12 @@ model Lesson {
   title       String
   description String?
   videoUrl    String
-  duration    Int?       // seconds
+  duration    Int?
   order       Int
   courseId    String
+  createdAt   DateTime   @default(now())
   course      Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
   progress    Progress[]
-  createdAt   DateTime   @default(now())
 }
 
 model Purchase {
@@ -96,11 +96,11 @@ model Purchase {
   courseId   String
   txHash     String    @unique
   amountSOL  Float
-  status     String    @default("PENDING") // PENDING | VERIFIED | FAILED
+  status     String    @default("PENDING")
   verifiedAt DateTime?
   createdAt  DateTime  @default(now())
-  user       User      @relation(fields: [userId], references: [id])
   course     Course    @relation(fields: [courseId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
 }
 
 model Progress {
@@ -110,8 +110,8 @@ model Progress {
   completed Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
   lesson    Lesson   @relation(fields: [lessonId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, lessonId])
 }

@@ -90,7 +90,7 @@ export default function LessonModal({ isOpen, onClose, onSuccess, courseId }: Le
                       type="url" 
                       required
                       placeholder="https://vimeo.com/..."
-                      className="input pl-14"
+                      className="input !pl-14"
                       value={formData.videoUrl}
                       onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
                     />
