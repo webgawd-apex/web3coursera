@@ -1,24 +1,40 @@
-import { createNeonAuth } from '@neondatabase/auth/next/server';
+import { betterAuth } from "better-auth";
+import { prismaAdapter } from "better-auth/adapters/prisma";
+import { prisma } from "./prisma";
 
-import { prisma } from './prisma';
-
-// Force trusted origins in environment for Better Auth
-if (process.env.NEXT_PUBLIC_APP_URL) {
-  process.env.BETTER_AUTH_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-    process.env.NEXT_PUBLIC_APP_URL,
-    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '',
-  ].filter(Boolean).join(',');
-}
-
-export const auth = createNeonAuth({
-  baseUrl: process.env.NEON_AUTH_BASE_URL || 'http://localhost:3000',
-  cookies: {
-    secret: process.env.NEON_AUTH_COOKIE_SECRET || 'placeholder-secret-for-build-time-only',
-  },
+export const auth = betterAuth({
+    database: prismaAdapter(prisma, {
+        provider: "postgresql",
+    }),
+    emailAndPassword: {
+        enabled: true,
+    },
+    secret: process.env.BETTER_AUTH_SECRET || process.env.NEON_AUTH_COOKIE_SECRET || "a-very-secure-fallback-secret-for-build-time",
+    trustedOrigins: [
+        'http://localhost:3000',
+        process.env.NEXT_PUBLIC_APP_URL || '',
+    ].filter(Boolean),
+    user: {
+        additionalFields: {
+            role: {
+                type: 'string',
+                defaultValue: 'student',
+            },
+        },
+    },
 });
 
 export async function getAuthUser() {
-  const { data: session } = await auth.getSession();
-  return session?.user || null;
+  // Better Auth standard getSession requires passing headers/context in some environments
+  // but in Next.js it usually handles it via next/headers internally or we can pass them.
+  // For simplicity in server components/actions:
+  try {
+    const { headers } = await import("next/headers");
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    return session?.user || null;
+  } catch (e) {
+    return null;
+  }
 }

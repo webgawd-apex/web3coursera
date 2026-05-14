@@ -3,7 +3,9 @@ import type { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
 
 export default async function middleware(request: NextRequest) {
-  const { data: session } = await auth.getSession();
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
 
   const isAuth = !!session;
   const user = session?.user as { role?: string } | undefined;
